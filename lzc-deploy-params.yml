@@ -1,0 +1,11 @@
+params:
+    - id: nullbr_api_key
+      type: string
+      name: "nullbr api key"
+      description: "nullbr api key token from site https://nullbr.online/manage (need telegram)"
+
+locales:
+    zh:
+        nullbr_api_key:
+            name: "nullbr API密钥"
+            description: "Nullbr 的 API密钥，需要用 TG 账号进行登录注册 https://nullbr.online/manage"
