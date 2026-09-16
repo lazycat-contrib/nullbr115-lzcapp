@@ -1,0 +1,25 @@
+name: Nullbr115
+package: lazycat.coummunity.app.nullbr115
+version: 0.2.19
+min_os_version: 1.3.8
+description: Nullbr115是一个海量资源库项目,支持ed2k/磁力离线下载，支持115、123网盘转存
+homepage: https://nullbr.online
+author: nullbr
+application:
+    subdomain: nullbr115
+
+    public_path:
+        - /
+    upstreams:
+        - location: /
+          backend: http://nullbr115:8115
+
+services:
+    nullbr115:
+        # gravityle/nullbr115:0.2.1.9
+        image: registry.lazycat.cloud/czyt/gravityle/nullbr115:ddd148300c85abfa
+        binds:
+            - /lzcapp/var/config:/config
+            - /lzcapp/var/media:/media
+        environment:
+            - API_KEY={{.U.nullbr_api_key}}
