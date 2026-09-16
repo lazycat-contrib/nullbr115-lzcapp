@@ -7,8 +7,8 @@ application:
       backend: http://nullbr115:8115
 services:
   nullbr115:
-    # upstream: gravityle/nullbr115:0.2.1.9
-    image: docker.1ms.run/gravityle/nullbr115:0.2.1.9
+    # upstream: gravityle/nullbr115:latest
+    image: docker.1ms.run/gravityle/nullbr115:latest
     binds:
       - /lzcapp/var/config:/config
       - /lzcapp/var/media:/media
