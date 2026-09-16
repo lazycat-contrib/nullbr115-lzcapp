@@ -13,24 +13,23 @@ update:
   version_source:
     type: image
     image: nullbr115
-    bump: patch
 
 build:
   run_buildscript: false
 
 images:
-  # 上游 Docker Hub 仅存 mutable 别名（latest），无 immutable 版本 tag 家族（0.2.1.9 等已删除）
-  # → custom/created + digest-pin + patch 自增；digest 由 Action 首次运行验证后回写
+  # 上游仅发布 4 段式版本 tag（0.2.1.9 等），非标准 SemVer → custom 通道 + 版本映射 0.2.1.9 → 0.2.19
   - id: nullbr115
     target: service
     service: nullbr115
     source: gravityle/nullbr115
     channel: custom
-    sort: created
-    tag_regex: '^latest$'
+    sort: semver
+    tag_regex: '^0\.2\.\d+\.\d+$'
+    version_regex: '^0\.2\.(?P<version>\d+)\.(?P<build>\d+)$'
+    version_template: '0.2.{version}{build}'
     delivery:
       mode: mirror
-      require_digest_match: true
 
 stores:
   official:
