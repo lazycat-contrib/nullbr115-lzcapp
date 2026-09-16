@@ -1,0 +1,42 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/nullbr115.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: nullbr115
+
+build:
+  run_buildscript: false
+
+images:
+  # 上游仅发布 4 段式版本 tag（0.2.1.9 等），非标准 SemVer → custom 通道 + 版本映射 0.2.1.9 → 0.2.19
+  - id: nullbr115
+    target: service
+    service: nullbr115
+    source: gravityle/nullbr115
+    channel: custom
+    sort: semver
+    tag_regex: '^0\.2\.\d+\.\d+$'
+    version_regex: '^0\.2\.(?P<version>\d+)\.(?P<build>\d+)$'
+    version_template: '0.2.{version}{build}'
+    delivery:
+      mode: mirror
+
+stores:
+  official:
+    # Official store publication is intentionally disabled; publish only to Miaomiao Store.
+    enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Nullbr115
+    summary: "Nullbr115是一个海量资源库项目,支持ed2k/磁力离线下载，支持115、123网盘转存"
